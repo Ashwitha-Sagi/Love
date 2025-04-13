@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To My Long Distance Love</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffe6e6;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px; /* Ensure it's never too wide */
+      position: relative;
+      z-index: 2;
+    }
+
+    .heart {
+      font-size: 80px;
+      color: red;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .message {
+      display: none;
+      font-size: 16px;
+      color: #444;
+      margin-top: 1.5rem;
+      white-space: pre-wrap;
+      text-align: left;
+      min-height: 180px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #ff4d4d;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e60000;
+    }
+
+    .title {
+      font-size: 24px;
+      color: #333;
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .popup {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      display: none;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Position adjustments for small screens */
+    #kissPopup { bottom: 50px; right: 10%; }
+    #bikePopup { bottom: 50px; left: 10%; }
+    #hugPopup { top: 50px; left: 10%; }
+    #lakePopup { top: 50px; right: 10%; }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .card {
+        padding: 1rem;
+        width: 85%;
+      }
+
+      .heart {
+        font-size: 60px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .message {
+        font-size: 14px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+
+      .popup {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="heart" id="heart">❤️</div>
+    <div class="title" id="title">To My Love</div>
+    <button class="btn" id="revealBtn" onclick="revealMessage()">Tap to Reveal</button>
+    <div class="message" id="loveMessage"></div>
+  </div>
+
+  <!-- Image Popups -->
+  <img id="kissPopup" class="popup" src="../Love/images/1.jpeg" alt="Kiss" />
+  <img id="bikePopup" class="popup" src="../Love/images/2.jpeg" alt="Bike Ride" />
+  <img id="hugPopup" class="popup" src="../Love/images/3.jpeg" alt="Hug" />
+  <img id="lakePopup" class="popup" src="../Love/images/4.jpeg" alt="Lake" />
+
+  <script>
+    const messageText = `Even though miles keep us apart, not a single moment passes without you in my thoughts. 💭
+
+Your love is my strength, your voice is my comfort, and your heart is my home. 🏡
+
+I miss your hugs, your smile, and everything in between — but I know our love is stronger than any distance. ❤️‍🔥
+
+One day soon, I’ll be in your arms again. Until then, I’m holding you in mine with every beat of my heart. 💖`;
+
+    function revealMessage() {
+      document.getElementById('heart').classList.add('hidden');
+      document.getElementById('title').classList.add('hidden');
+      document.getElementById('revealBtn').classList.add('hidden');
+
+      const msgBox = document.getElementById('loveMessage');
+      msgBox.style.display = 'block';
+
+      let i = 0;
+      const speed = 35;
+
+      function typeWriter() {
+        if (i < messageText.length) {
+          msgBox.innerHTML += messageText.charAt(i);
+
+          // Popups timed with message typing
+          if (i === 50) document.getElementById('kissPopup').style.display = 'block';
+          if (i === 150) document.getElementById('bikePopup').style.display = 'block';
+          if (i === 300) document.getElementById('hugPopup').style.display = 'block';
+          if (i === Math.floor(messageText.length * 0.85)) document.getElementById('lakePopup').style.display = 'block';
+
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+
+      typeWriter();
+    }
+  </script>
+</body>
+</html>
